@@ -1,40 +1,31 @@
 
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "snowdrift",
   "version": "${version}",
 
-  "name": "Fabric Example Mod",
-  "description": "Draylar's Fabric Example Mod!",
+  "name": "Snowdrift",
+  "description": "Snowpiles build up while it snows and then slowly melt afterwards.",
   "authors": [
     "Draylar"
   ],
   "contact": {
-    "homepage": "https://github.com/Draylar",
-    "sources": "https://github.com/Draylar/fabric-example-mod"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/snowdrift",
+    "sources": "https://github.com/Draylar/snowdrift"
   },
 
-  "license": "GPLv3",
-  "icon": "assets/modid/icon.png",
+  "license": "MIT",
+  "icon": "assets/snowdrift/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.draylar.modid.ExampleMod"
-    ],
-    "client": [
-      "com.github.draylar.modid.ExampleModClient"
+      "com.github.draylar.snowdrift.Snowdrift"
     ]
   },
-  "mixins": [
-    "modid.mixins.json"
-  ],
 
   "requires": {
     "fabricloader": ">=0.4.0",
     "fabric": "*"
-  },
-  "suggests": {
-    "flamingo": "*"
   }
 }

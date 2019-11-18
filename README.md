@@ -1,14 +1,13 @@
-# Fabric Example Mod
+# Snowdrift
 
-Draylar's fork of the fabric-example-mod. Includes a modified package structure as well as several registry classes and a client initializer.
+Plains of snow, slowly increasing in size as flurries dance to the ground. Snowdrift is a simple mod that makes snowpiles appear while it snows; these piles disappear once the snow stops.
 
-## Setup
+Snowdrift is built for the Fabric loader on 19w46b, and is licensed under MIT. You are free to use the code in this repository as needed.
 
-1. Edit build.gradle and mod.json to suit your needs.
-    * The "mixins" object can be removed from mod.json if you do not need to use mixins.
-    * Please replace all occurences of "modid" with your own mod ID - sometimes, a different string may also suffice.
-2. Run the following command:
+## Installation
 
-```
-./gradlew idea
-```
+1. Download the latest Snowdrift jar from the release tab or the CurseForge page
+    * GitHub releases may be behind the CurseForge page
+2. Drag and drop into your Minecraft jar alongside an appropriate version of Fabric API
+3. Tweak the config file as needed after running the game once
+4. Enter a world and find an area that is snowing
