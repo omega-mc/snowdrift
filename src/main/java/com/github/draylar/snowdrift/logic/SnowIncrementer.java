@@ -31,10 +31,13 @@ public class SnowIncrementer {
         return world.random.nextInt(Snowdrift.CONFIG.increaseChancePerChunk) == 0;
     }
 
-    // todo: what if snow is layer 0? do we enter a deadlock where no snow can pile at certain positions?
     private void tryIncrementSnowAt(ServerWorld world, BlockPos basePos) {
         BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
+
+        if(getSnowLevelAt(world, topPos) >= Snowdrift.CONFIG.maxLayers) {
+            return;
+        }
 
         // attempt to increment existing snow pile
         if(topState.getBlock().equals(Blocks.SNOW)) {
@@ -75,5 +78,25 @@ public class SnowIncrementer {
         }
 
         return levels;
+    }
+
+    private int getSnowLevelAt(ServerWorld world, BlockPos pos) {
+        int level = 0;
+
+        if(world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
+
+            // get lowest snow layer position
+            while (world.getBlockState(pos.down(1)).getBlock().equals(Blocks.SNOW)) {
+                pos = pos.down(1);
+            }
+
+            // while there is snow upwards
+            while(world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
+                level += world.getBlockState(pos).get(SnowBlock.LAYERS);
+                pos = pos.up(1);
+            }
+        }
+
+        return level;
     }
 }
