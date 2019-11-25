@@ -59,8 +59,11 @@ public class SnowIncrementer {
             }
         }
 
-        // place new snow pile
-        world.setBlockState(topPos, Blocks.SNOW.getDefaultState());
+        // There can possibly be a non-air block you can walk through in topPos
+        if (topState.isAir()) {
+            // place new snow pile
+            world.setBlockState(topPos, Blocks.SNOW.getDefaultState());
+        }
     }
 
     private ArrayList<Integer> getLevelsAround(ServerWorld world, BlockPos pos) {
