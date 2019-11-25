@@ -54,13 +54,10 @@ public class SnowIncrementer {
             if(higherPositionsAroundBlock >= Snowdrift.CONFIG.smoothingRequirement) {
                 if (currentLayers < 8) {
                     world.setBlockState(topPos, topState.with(SnowBlock.LAYERS, currentLayers + 1));
-                    return;
                 }
             }
-        }
-
-        // There can possibly be a non-air block you can walk through in topPos
-        if (topState.isAir()) {
+            // There can possibly be a non-air block you can walk through in topPos
+        } else if (topState.isAir()) {
             // place new snow pile
             world.setBlockState(topPos, Blocks.SNOW.getDefaultState());
         }
