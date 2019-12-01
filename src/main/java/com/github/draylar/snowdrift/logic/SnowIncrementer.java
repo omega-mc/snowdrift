@@ -57,7 +57,7 @@ public class SnowIncrementer {
                 }
             }
             // There can possibly be a non-air block you can walk through in topPos
-        } else if (topState.isAir()) {
+        } else if (topState.isAir() && Blocks.SNOW.getDefaultState().canPlaceAt(world, topPos)) {
             // place new snow pile
             world.setBlockState(topPos, Blocks.SNOW.getDefaultState());
         }
