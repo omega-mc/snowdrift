@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnowIncrementer {
+    private static final float MAX_SNOW_TEMP = 0.15f;
 
     public void tickSnow(ServerWorld world, List<Chunk> loadedChunks) {
         loadedChunks.forEach(chunk -> {
@@ -34,6 +35,10 @@ public class SnowIncrementer {
     private void tryIncrementSnowAt(ServerWorld world, BlockPos basePos) {
         BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
+
+        if(world.getBiomeAccess().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
+            return;
+        }
 
         if(getSnowLevelAt(world, topPos) >= Snowdrift.CONFIG.maxLayers) {
             return;
