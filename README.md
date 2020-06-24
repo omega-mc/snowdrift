@@ -1,5 +1,7 @@
 # Snowdrift
 
+![](https://i.imgur.com/Ok4L183.png)
+
 Plains of snow, slowly increasing in size as flurries dance to the ground. Snowdrift is a simple mod that makes snowpiles appear while it snows; these piles disappear once the snow stops.
 
 Snowdrift is built for the Fabric loader, and is licensed under MIT. You are free to use the code in this repository as needed.
