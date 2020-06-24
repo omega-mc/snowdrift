@@ -1,6 +1,5 @@
 package com.github.draylar.snowdrift.logic;
 
-import com.github.draylar.snowdrift.Snowdrift;
 import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.ChunkPos;
@@ -11,21 +10,19 @@ import java.util.List;
 
 public class SnowTickEventHandler {
 
-    private static SnowIncrementer snowIncrementer = new SnowIncrementer();
-    private static SnowDecrementer snowDecrementer = new SnowDecrementer();
+    private static final SnowIncrementer snowIncrementer = new SnowIncrementer();
+    private static final SnowDecrementer snowDecrementer = new SnowDecrementer();
 
     public static void init() {
         ServerTickCallback.EVENT.register(server -> {
-            Snowdrift.snowdriftDimensions.forEach(type -> {
-                ServerWorld world = server.getWorld(type);
-                List<Chunk> loadedChunks = getLoadedChunks(world);
+            ServerWorld world = server.getOverworld();
+            List<Chunk> loadedChunks = getLoadedChunks(world);
 
-                if(world.isRaining()) {
-                    snowIncrementer.tickSnow(world, loadedChunks);
-                } else {
-                    snowDecrementer.tickClear(world, loadedChunks);
-                }
-            });
+            if (world.isRaining()) {
+                snowIncrementer.tickSnow(world, loadedChunks);
+            } else {
+                snowDecrementer.tickClear(world, loadedChunks);
+            }
         });
     }
 

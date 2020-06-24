@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnowIncrementer {
+
     private static final float MAX_SNOW_TEMP = 0.15f;
 
     public void tickSnow(ServerWorld world, List<Chunk> loadedChunks) {
