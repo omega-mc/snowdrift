@@ -1,14 +1,15 @@
 package draylar.snowdrift.logic;
 
 import draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.config.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
@@ -19,18 +20,18 @@ public class SnowDecrementer {
             ChunkPos chunkPos = chunk.getPos();
 
             if(canDecrementSnow(world)) {
-                BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
+                BlockPos snowPos = new BlockPos(chunkPos.getXStart() + world.rand.nextInt(16), 0, chunkPos.getZStart() + world.rand.nextInt(16));
                 tryDecrementSnowAt(world, snowPos);
             }
         });
     }
 
     private boolean canDecrementSnow(ServerWorld world) {
-        return world.random.nextInt(Snowdrift.CONFIG.decreaseChancePerChunk) == 0;
+        return world.rand.nextInt(Config.SERVER.decreaseChancePerChunk.get()) == 0;
     }
 
     private void tryDecrementSnowAt(ServerWorld world, BlockPos basePos) {
-        BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
+        BlockPos topPos = world.getHeight(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
         BlockState underState = world.getBlockState(topPos.down(1));
 
@@ -47,7 +48,7 @@ public class SnowDecrementer {
                     world.setBlockState(topPos, topState.with(SnowBlock.LAYERS, currentLayers - 1));
                 }
             } else {
-                if(currentLayers > Snowdrift.CONFIG.layersToKeep) {
+                if(currentLayers > Config.SERVER.layersToKeep.get()) {
                     world.setBlockState(topPos, topState.with(SnowBlock.LAYERS, currentLayers - 1));
                 }
             }

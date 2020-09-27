@@ -1,0 +1,15 @@
+modLoader="javafml" #mandatory
+loaderVersion="[32,)" #mandatory
+license="MIT"
+issueTrackerURL="https://github.com/Draylar/snowdrift/issues" #optional
+
+[[mods]] #mandatory
+modId="snowdrift" #mandatory
+version="1.1.0" #mandatory
+displayName="Snowdrift" #mandatory
+displayURL="https://github.com/Draylar/snowdrift" #optional
+logoFile="icon.png" #optional (jar root)
+authors="Draylar" #optional
+description='''
+Snowpiles build up while it snows and then slowly melt afterwards.
+'''

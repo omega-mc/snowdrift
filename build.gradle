@@ -1,48 +1,48 @@
-plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+buildscript {
+	repositories {
+		maven { url = 'https://files.minecraftforge.net/maven' }
+		jcenter()
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+	}
 }
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+version = version + "-" + minecraft_version
+archivesBaseName = modid
 
-archivesBaseName = "${modid}"
-version = "${version}" + "-" + project.minecraft_version
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-}
+	mappings channel: 'snapshot', version: '20200514-1.16'
 
-repositories {
-	maven { url = "https://maven.fabricmc.net/" }
-	maven { url "https://dl.bintray.com/shedaniel/autoconfig1u/" }
-	maven { url = "https://jitpack.io" }
+	// Default run configurations.
+	// These can be tweaked, removed, or duplicated as needed.
+	runs {
+		client {
+			workingDirectory project.file('run')
+
+			// Recommended logging data for a userdev environment
+			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+			// Recommended logging level for the console
+			property 'forge.logging.console.level', 'debug'
+
+			mods {
+				examplemod {
+					source sourceSets.main
+				}
+			}
+		}
+	}
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_build}"
-	modApi "net.fabricmc:fabric-loader:${project.loader_version}"
-	modApi "net.fabricmc.fabric-api:fabric-api:${project.api_version}"
-
-	modCompile "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-	include "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-
-	modCompile ("io.github.prospector:modmenu:${project.mod_menu_version}") {
-		exclude group: "net.fabricmc.fabric-api"
-	}
-}
-
-idea {
-	module {
-		inheritOutputDirs = false
-		outputDir = compileJava.destinationDir
-		testOutputDir = compileTestJava.destinationDir
-	}
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
+	minecraft 'net.minecraftforge:forge:1.16.3-34.0.9'
 }

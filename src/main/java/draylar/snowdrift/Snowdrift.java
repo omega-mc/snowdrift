@@ -1,26 +1,21 @@
 package draylar.snowdrift;
 
-import draylar.snowdrift.config.ModConfig;
+import draylar.snowdrift.config.Config;
 import draylar.snowdrift.logic.SnowTickEventHandler;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Snowdrift implements ModInitializer {
+@Mod("snowdrift")
+public class Snowdrift {
 
 	public static final String MODID = "snowdrift";
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
-	public static final ModConfig CONFIG = AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new).getConfig();
 
-	@Override
-	public void onInitialize() {
-		SnowTickEventHandler.init();
-	}
-
-	public static Identifier id(String name) {
-		return new Identifier(MODID, name);
+	public Snowdrift() {
+		MinecraftForge.EVENT_BUS.register(new SnowTickEventHandler());
+		ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, Config.SPEC);
 	}
 }

@@ -1,9 +1,10 @@
 package draylar.snowdrift.logic;
 
-import net.fabricmc.fabric.api.event.server.ServerTickCallback;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +14,16 @@ public class SnowTickEventHandler {
     private static final SnowIncrementer snowIncrementer = new SnowIncrementer();
     private static final SnowDecrementer snowDecrementer = new SnowDecrementer();
 
-    public static void init() {
-        ServerTickCallback.EVENT.register(server -> {
-            ServerWorld world = server.getOverworld();
-            List<Chunk> loadedChunks = getLoadedChunks(world);
+    @SubscribeEvent
+    public void onTick(TickEvent.WorldTickEvent event) {
+        ServerWorld world = event.world.getServer().func_241755_D_();
+        List<Chunk> loadedChunks = getLoadedChunks(world);
 
-            if (world.isRaining()) {
-                snowIncrementer.tickSnow(world, loadedChunks);
-            } else {
-                snowDecrementer.tickClear(world, loadedChunks);
-            }
-        });
+        if (world.isRaining()) {
+            snowIncrementer.tickSnow(world, loadedChunks);
+        } else {
+            snowDecrementer.tickClear(world, loadedChunks);
+        }
     }
 
     /**
@@ -32,12 +32,12 @@ public class SnowTickEventHandler {
      * @param world world to retrieve loaded chunks from
      * @return a list of loaded chunks in the given world
      */
-    private static List<Chunk> getLoadedChunks(ServerWorld world) {
+    private List<Chunk> getLoadedChunks(ServerWorld world) {
         ArrayList<Chunk> loadedChunks = new ArrayList<>();
-        int renderDistance = world.getServer().getPlayerManager().getViewDistance();
+        int renderDistance = world.getServer().getPlayerList().getViewDistance();
 
         world.getPlayers().forEach(player -> {
-            ChunkPos playerChunkPos = new ChunkPos(player.getBlockPos());
+            ChunkPos playerChunkPos = new ChunkPos(player.func_233580_cy_());
             Chunk chunk = world.getChunk(playerChunkPos.x, playerChunkPos.z);
 
             if(!loadedChunks.contains(chunk)) {

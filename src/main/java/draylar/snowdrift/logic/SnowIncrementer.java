@@ -1,15 +1,16 @@
 package draylar.snowdrift.logic;
 
 import draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.config.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,25 +24,25 @@ public class SnowIncrementer {
             ChunkPos chunkPos = chunk.getPos();
 
             if(canIncrementSnow(world)) {
-                BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
+                BlockPos snowPos = new BlockPos(chunkPos.getXStart() + world.rand.nextInt(16), 0, chunkPos.getZStart() + world.rand.nextInt(16));
                 tryIncrementSnowAt(world, snowPos);
             }
         });
     }
 
     private boolean canIncrementSnow(ServerWorld world) {
-        return world.random.nextInt(Snowdrift.CONFIG.increaseChancePerChunk) == 0;
+        return world.rand.nextInt(Config.SERVER.increaseChancePerChunk.get()) == 0;
     }
 
     private void tryIncrementSnowAt(ServerWorld world, BlockPos basePos) {
-        BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
+        BlockPos topPos = world.getHeight(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
 
-        if(world.getBiomeAccess().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
+        if(world.getBiomeManager().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
             return;
         }
 
-        if(getSnowLevelAt(world, topPos) >= Snowdrift.CONFIG.maxLayers) {
+        if(getSnowLevelAt(world, topPos) >= Config.SERVER.maxLayers.get()) {
             return;
         }
 
@@ -57,13 +58,13 @@ public class SnowIncrementer {
                 }
             }
 
-            if(higherPositionsAroundBlock >= Snowdrift.CONFIG.smoothingRequirement) {
+            if(higherPositionsAroundBlock >= Config.SERVER.smoothingRequirement.get()) {
                 if (currentLayers < 8) {
                     world.setBlockState(topPos, topState.with(SnowBlock.LAYERS, currentLayers + 1));
                 }
             }
             // There can possibly be a non-air block you can walk through in topPos
-        } else if (topState.isAir() && Blocks.SNOW.getDefaultState().canPlaceAt(world, topPos)) {
+        } else if (topState.isAir() && Blocks.SNOW.getDefaultState().isValidPosition(world, topPos)) {
             // place new snow pile
             world.setBlockState(topPos, Blocks.SNOW.getDefaultState());
         }
