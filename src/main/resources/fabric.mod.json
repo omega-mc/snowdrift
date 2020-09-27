@@ -20,7 +20,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.draylar.snowdrift.Snowdrift"
+      "draylar.snowdrift.Snowdrift"
     ]
   },
 

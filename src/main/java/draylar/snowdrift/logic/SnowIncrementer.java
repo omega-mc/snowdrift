@@ -1,6 +1,6 @@
-package com.github.draylar.snowdrift.logic;
+package draylar.snowdrift.logic;
 
-import com.github.draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.Snowdrift;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;

@@ -1,15 +1,9 @@
-package com.github.draylar.snowdrift.config;
+package draylar.snowdrift.config;
 
-import com.github.draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.Snowdrift;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.dimension.DimensionType;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Config(name = Snowdrift.MODID)
 public class ModConfig implements ConfigData {

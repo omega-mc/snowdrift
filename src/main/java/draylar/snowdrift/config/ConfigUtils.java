@@ -1,6 +1,6 @@
-package com.github.draylar.snowdrift.config;
+package draylar.snowdrift.config;
 
-import com.github.draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.Snowdrift;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigManager;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.ConfigSerializer;

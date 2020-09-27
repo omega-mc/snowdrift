@@ -1,7 +1,7 @@
-package com.github.draylar.snowdrift;
+package draylar.snowdrift;
 
-import com.github.draylar.snowdrift.config.ModConfig;
-import com.github.draylar.snowdrift.logic.SnowTickEventHandler;
+import draylar.snowdrift.config.ModConfig;
+import draylar.snowdrift.logic.SnowTickEventHandler;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;

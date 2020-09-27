@@ -1,4 +1,4 @@
-package com.github.draylar.snowdrift.logic;
+package draylar.snowdrift.logic;
 
 import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import net.minecraft.server.world.ServerWorld;
