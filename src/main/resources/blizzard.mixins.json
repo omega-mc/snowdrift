@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "draylar.snowdrift.mixins",
+  "plugin": "draylar.snowdrift.mixins.plugins.BlizzardMixinPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlizzardBiomeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

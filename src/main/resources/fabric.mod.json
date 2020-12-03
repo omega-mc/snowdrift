@@ -1,9 +1,7 @@
-
 {
   "schemaVersion": 1,
   "id": "snowdrift",
   "version": "${version}",
-
   "name": "Snowdrift",
   "description": "Snowpiles build up while it snows and then slowly melt afterwards.",
   "authors": [
@@ -13,17 +11,18 @@
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/snowdrift",
     "sources": "https://github.com/Draylar/snowdrift"
   },
-
   "license": "MIT",
   "icon": "assets/snowdrift/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
       "draylar.snowdrift.Snowdrift"
     ]
   },
-
+  "mixins": [
+    "blizzard.mixins.json",
+    "blizzard.precipitation.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*"
