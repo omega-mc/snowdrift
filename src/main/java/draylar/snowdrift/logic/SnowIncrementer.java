@@ -22,14 +22,12 @@ public class SnowIncrementer {
         loadedChunks.forEach(chunk -> {
             ChunkPos chunkPos = chunk.getPos();
 
-            if (canIncrementSnow(world)) {
-                BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
-                tryIncrementSnowAt(world, snowPos);
-            }
+            BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
+            tryIncrementSnowAt(world, snowPos);
         });
     }
 
-    private boolean canIncrementSnow(ServerWorld world) {
+    public static boolean canIncrementSnow(ServerWorld world) {
         return world.random.nextInt(Snowdrift.CONFIG.increaseChancePerChunk) == 0;
     }
 

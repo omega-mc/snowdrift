@@ -18,15 +18,13 @@ public class SnowDecrementer {
         loadedChunks.forEach(chunk -> {
             ChunkPos chunkPos = chunk.getPos();
 
-            if (canDecrementSnow(world)) {
-                BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
-                tryDecrementSnowAt(world, snowPos);
-            }
+            BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
+            tryDecrementSnowAt(world, snowPos);
         });
     }
 
-    private boolean canDecrementSnow(ServerWorld world) {
-        return world.random.nextInt(Snowdrift.CONFIG.decreaseChancePerChunk) == 0;
+    public static boolean canDecrementSnow(ServerWorld world) {
+        return world.random.nextInt(Snowdrift.CONFIG.decreaseChancePerChunk / Snowdrift.CONFIG.increaseChancePerChunk) == 0;
     }
 
     private void tryDecrementSnowAt(ServerWorld world, BlockPos basePos) {

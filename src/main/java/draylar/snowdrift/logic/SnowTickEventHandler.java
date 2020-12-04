@@ -16,12 +16,14 @@ public class SnowTickEventHandler {
     public static void init() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             ServerWorld world = server.getOverworld();
-            List<Chunk> loadedChunks = getLoadedChunks(world);
+            if (SnowIncrementer.canIncrementSnow(world)) {
+                List<Chunk> loadedChunks = getLoadedChunks(world);
 
-            if (world.isRaining()) {
-                snowIncrementer.tickSnow(world, loadedChunks);
-            } else {
-                snowDecrementer.tickClear(world, loadedChunks);
+                if (world.isRaining()) {
+                    snowIncrementer.tickSnow(world, loadedChunks);
+                } else if (SnowDecrementer.canDecrementSnow(world)) {
+                    snowDecrementer.tickClear(world, loadedChunks);
+                }
             }
         });
     }
