@@ -21,4 +21,10 @@ public class ModConfig implements ConfigData {
 
     @Comment("Amount of snow blocks around a position that must be at least the same level of snow in order for snow to pile up.")
     public int smoothingRequirement = 2;
+
+    @Comment("Enables the Blizzard functionality - the entire Overworld (and any similar dimension) is going to be cold and snowy.")
+    public boolean enableBlizzard = false;
+
+    @Comment("[Blizzard] Tired of seeing the sun? Enable this for eternal snowfall.")
+    public boolean constantSnow = false;
 }

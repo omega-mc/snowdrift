@@ -22,14 +22,12 @@ public class SnowIncrementer {
         loadedChunks.forEach(chunk -> {
             ChunkPos chunkPos = chunk.getPos();
 
-            if(canIncrementSnow(world)) {
-                BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
-                tryIncrementSnowAt(world, snowPos);
-            }
+            BlockPos snowPos = new BlockPos(chunkPos.getStartX() + world.random.nextInt(16), 0, chunkPos.getStartZ() + world.random.nextInt(16));
+            tryIncrementSnowAt(world, snowPos);
         });
     }
 
-    private boolean canIncrementSnow(ServerWorld world) {
+    public static boolean canIncrementSnow(ServerWorld world) {
         return world.random.nextInt(Snowdrift.CONFIG.increaseChancePerChunk) == 0;
     }
 
@@ -37,27 +35,27 @@ public class SnowIncrementer {
         BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
 
-        if(world.getBiomeAccess().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
+        if (world.getBiomeAccess().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
             return;
         }
 
-        if(getSnowLevelAt(world, topPos) >= Snowdrift.CONFIG.maxLayers) {
+        if (getSnowLevelAt(world, topPos) >= Snowdrift.CONFIG.maxLayers) {
             return;
         }
 
         // attempt to increment existing snow pile
-        if(topState.getBlock().equals(Blocks.SNOW)) {
+        if (topState.getBlock().equals(Blocks.SNOW)) {
 
             int currentLayers = topState.get(SnowBlock.LAYERS);
 
             int higherPositionsAroundBlock = 0;
-            for(int i : getLevelsAround(world, topPos)) {
-                if(i >= currentLayers) {
+            for (int i : getLevelsAround(world, topPos)) {
+                if (i >= currentLayers) {
                     higherPositionsAroundBlock++;
                 }
             }
 
-            if(higherPositionsAroundBlock >= Snowdrift.CONFIG.smoothingRequirement) {
+            if (higherPositionsAroundBlock >= Snowdrift.CONFIG.smoothingRequirement) {
                 if (currentLayers < 8) {
                     world.setBlockState(topPos, topState.with(SnowBlock.LAYERS, currentLayers + 1));
                 }
@@ -72,11 +70,11 @@ public class SnowIncrementer {
     private ArrayList<Integer> getLevelsAround(ServerWorld world, BlockPos pos) {
         ArrayList<Integer> levels = new ArrayList<>();
 
-        for(Direction direction : Direction.values()) {
-            if(direction.getAxis() != Direction.Axis.Y) {
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() != Direction.Axis.Y) {
                 BlockState offsetState = world.getBlockState(pos.offset(direction));
 
-                if(offsetState.getBlock().equals(Blocks.SNOW)) {
+                if (offsetState.getBlock().equals(Blocks.SNOW)) {
                     int offsetLevel = offsetState.get(SnowBlock.LAYERS);
                     levels.add(offsetLevel);
                 }
@@ -89,7 +87,7 @@ public class SnowIncrementer {
     private int getSnowLevelAt(ServerWorld world, BlockPos pos) {
         int level = 0;
 
-        if(world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
+        if (world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
 
             // get lowest snow layer position
             while (world.getBlockState(pos.down(1)).getBlock().equals(Blocks.SNOW)) {
@@ -97,7 +95,7 @@ public class SnowIncrementer {
             }
 
             // while there is snow upwards
-            while(world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
+            while (world.getBlockState(pos).getBlock().equals(Blocks.SNOW)) {
                 level += world.getBlockState(pos).get(SnowBlock.LAYERS);
                 pos = pos.up(1);
             }

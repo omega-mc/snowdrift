@@ -11,16 +11,16 @@ import org.apache.logging.log4j.Logger;
 
 public class Snowdrift implements ModInitializer {
 
-	public static final String MODID = "snowdrift";
-	public static final Logger LOGGER = LogManager.getLogger(MODID);
-	public static final ModConfig CONFIG = AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new).getConfig();
+    public static final String MODID = "snowdrift";
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final ModConfig CONFIG = AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new).getConfig();
 
-	@Override
-	public void onInitialize() {
-		SnowTickEventHandler.init();
-	}
+    @Override
+    public void onInitialize() {
+        SnowTickEventHandler.init();
+    }
 
-	public static Identifier id(String name) {
-		return new Identifier(MODID, name);
-	}
+    public static Identifier id(String name) {
+        return new Identifier(MODID, name);
+    }
 }
