@@ -4,6 +4,7 @@
   "plugin": "draylar.snowdrift.mixins.plugins.BlizzardPrecipitationMixinPlugin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BiomeAccessor",
     "BlizzardLevelPropertiesMixin"
   ],
   "injectors": {

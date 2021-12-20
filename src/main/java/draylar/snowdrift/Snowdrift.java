@@ -1,9 +1,8 @@
 package draylar.snowdrift;
 
+import draylar.omegaconfig.OmegaConfig;
 import draylar.snowdrift.config.ModConfig;
 import draylar.snowdrift.logic.SnowTickEventHandler;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +12,7 @@ public class Snowdrift implements ModInitializer {
 
     public static final String MODID = "snowdrift";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final ModConfig CONFIG = AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new).getConfig();
+    public static final ModConfig CONFIG = OmegaConfig.register(ModConfig.class);
 
     @Override
     public void onInitialize() {

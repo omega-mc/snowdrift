@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "draylar.snowdrift.Snowdrift"
+    ],
+    "client": [
+      "draylar.snowdrift.SnowdriftClient"
     ]
   },
   "mixins": [

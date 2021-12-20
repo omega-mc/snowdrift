@@ -1,12 +1,11 @@
 package draylar.snowdrift.config;
 
-import draylar.snowdrift.Snowdrift;
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
+import draylar.omegaconfig.api.Comment;
+import draylar.omegaconfig.api.Config;
+import org.jetbrains.annotations.Nullable;
 
-@Config(name = Snowdrift.MODID)
-public class ModConfig implements ConfigData {
+public class ModConfig implements Config {
+
     @Comment("The chance for a snow layer to attempt to appear at a random position in a chunk every tick. 200 is 1/200 chance, or about once every 10 seconds. 20 is about every second.")
     public int increaseChancePerChunk = 200;
 
@@ -27,4 +26,19 @@ public class ModConfig implements ConfigData {
 
     @Comment("[Blizzard] Tired of seeing the sun? Enable this for eternal snowfall.")
     public boolean constantSnow = false;
+
+    @Override
+    public String getName() {
+        return "snowdrift";
+    }
+
+    @Override
+    public String getExtension() {
+        return "json5";
+    }
+
+    @Override
+    public @Nullable String getModid() {
+        return "snowdrift";
+    }
 }

@@ -1,6 +1,7 @@
 package draylar.snowdrift.logic;
 
 import draylar.snowdrift.Snowdrift;
+import draylar.snowdrift.mixins.BiomeAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
@@ -35,7 +36,7 @@ public class SnowIncrementer {
         BlockPos topPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, basePos);
         BlockState topState = world.getBlockState(topPos);
 
-        if (world.getBiomeAccess().getBiome(topPos).getTemperature(topPos) > MAX_SNOW_TEMP) {
+        if (((BiomeAccessor) (Object) world.getBiomeAccess().getBiome(topPos)).callGetTemperature(topPos) > MAX_SNOW_TEMP) {
             return;
         }
 
