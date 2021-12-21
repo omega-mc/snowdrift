@@ -27,7 +27,8 @@
   },
   "mixins": [
     "blizzard.mixins.json",
-    "blizzard.precipitation.mixins.json"
+    "blizzard.precipitation.mixins.json",
+    "snowdrift.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.4.0",

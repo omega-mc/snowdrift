@@ -1,10 +1,9 @@
 {
   "required": true,
   "package": "draylar.snowdrift.mixins",
-  "plugin": "draylar.snowdrift.mixins.plugins.BlizzardPrecipitationMixinPlugin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BlizzardLevelPropertiesMixin"
+    "BiomeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

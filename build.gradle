@@ -14,7 +14,7 @@ minecraft {
 }
 
 repositories {
-    mavenLocal()
+    maven { url 'https://jitpack.io' }
 
 	// Needed to retrieve Cloth Config Lite for Omega Config in development environments.
 	maven {
@@ -35,10 +35,10 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.api_version}"
 
     // Omega Config & ModMenu for testing configuration screen
-    include("draylar.omega-config:omega-config-base:${project.omega_config_version}")
-    include("draylar.omega-config:omega-config-gui:${project.omega_config_version}")
-    modImplementation("draylar.omega-config:omega-config-base:${project.omega_config_version}")
-    modImplementation("draylar.omega-config:omega-config-gui:${project.omega_config_version}")
+    include("com.github.Draylar.omega-config:omega-config-base:${project.omega_config_version}")
+    include("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
+    modImplementation("com.github.Draylar.omega-config:omega-config-base:${project.omega_config_version}")
+    modImplementation("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
     modRuntimeOnly ("com.terraformersmc:modmenu:${project.modmenu_version}")
 }
 
